@@ -1,0 +1,11 @@
+venv/
+env/
+.git/
+.env
+log/
+
+# IDE
+.idea/
+.vscode/
+
+*.sqlite3

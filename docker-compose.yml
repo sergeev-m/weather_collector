@@ -1,0 +1,80 @@
+version: '3'
+
+services:
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    restart: always
+    ports:
+      - '6379:6379'
+
+  db:
+    image: postgres:15.3-alpine3.18
+    container_name: db
+    env_file: .env
+    restart: always
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
+      interval: 30s
+      timeout: 3s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 4G
+
+  app:
+    build: .
+    container_name: app
+    command: ["/app/entrypoint.sh", "app"]
+    env_file: .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+      - celery
+      - celerybeat
+    restart: always
+
+  celery:
+      build:
+        context: .
+      env_file:
+        - .env
+      container_name: celery_app
+      command: ["/app/entrypoint.sh", "celery"]
+      depends_on:
+        - redis
+
+  celerybeat:
+    build:
+      context: .
+    container_name: celerybeat
+    env_file:
+      - .env
+    restart: unless-stopped
+    depends_on:
+      - db
+      - redis
+    command: ["/app/entrypoint.sh", "beat"]
+
+  flower:
+    build:
+      context: .
+    container_name: flower
+    command: ["/app/entrypoint.sh", "flower"]
+    env_file:
+      - .env
+    ports:
+      - "5555:5555"
+    depends_on:
+      - celery
+      - redis
+
+volumes:
+  pg_data:
