@@ -1,9 +1,9 @@
-import os
 import logging
+import os
 
-from logging import handlers, Logger
+from logging import Logger, handlers
 
-from core.conf import settings, LogPath
+from core.conf import LogPath, settings
 
 
 def get_log() -> Logger:

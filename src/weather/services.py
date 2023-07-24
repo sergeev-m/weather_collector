@@ -1,13 +1,13 @@
-import os
 import csv
+import os
 import requests
 
-from typing import Union, Type, Any
+from typing import Any, Type, Union
 from sqlalchemy import insert
-from sqlalchemy.orm import Session, Query
+from sqlalchemy.orm import Query, Session
 
+from core.conf import CsvPath, settings
 from log import log
-from core.conf import settings, CsvPath
 from weather.models import City, Weather
 
 

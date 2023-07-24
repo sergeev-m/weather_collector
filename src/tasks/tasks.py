@@ -1,9 +1,9 @@
-from log import log
-from core.db import db_session
-from weather.services import get_weather
 from celery import Celery
 
 from core.conf import settings
+from core.db import db_session
+from log import log
+from weather.services import get_weather
 
 
 celery_app = Celery(settings.CELERY_TASK_NAME, broker=settings.redis_url)

@@ -1,14 +1,12 @@
-from core.conf import settings
-from fastapi import FastAPI, Depends
+from fastapi import Depends, FastAPI
 from sqlalchemy.orm import Session
 
-from core.db import create_db_and_tables, get_db, db_session
+from core.conf import settings
+from core.db import create_db_and_tables, db_session, get_db
+from tasks.tasks import celery_app, collect_weather
 from weather.models import Weather
 from weather.schemas import WeatherSchema
-from weather.services import get_cities
-from tasks.tasks import collect_weather
-from tasks.tasks import celery_app
-from weather.services import get_weather
+from weather.services import get_cities, get_weather
 
 
 app = FastAPI(

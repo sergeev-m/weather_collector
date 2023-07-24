@@ -1,12 +1,11 @@
 import sys
 
-from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, sessionmaker
 
-from log import log
 from core.conf import settings
 from core.models import Base
+from log import log
 
 
 def create_engine_and_session(url: str):

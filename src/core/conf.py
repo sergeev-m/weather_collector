@@ -1,11 +1,10 @@
 import os
 
-from pathlib import Path
 from functools import lru_cache
+from pathlib import Path
 from typing import Optional
 from pydantic import PostgresDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
-
 
 BasePath = Path(__file__).resolve().parent.parent
 
