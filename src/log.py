@@ -1,12 +1,12 @@
 import os
 import logging
 
-from logging import handlers
+from logging import handlers, Logger
 
 from core.conf import settings, LogPath
 
 
-def get_log():
+def get_log() -> Logger:
     if not os.path.exists(LogPath):
         os.mkdir(LogPath)
 
