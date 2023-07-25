@@ -6,7 +6,7 @@ from typing import Optional
 from pydantic import PostgresDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-BasePath = Path(__file__).resolve().parent.parent
+BasePath = Path(__file__).resolve().parent.parent.parent
 
 Versions = os.path.join(BasePath, 'migrations', 'versions')
 

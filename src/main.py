@@ -18,7 +18,7 @@ app = FastAPI(
 
 
 @app.get("/", response_model=list[WeatherSchema])
-def root(skip: int = 0, limit: int = 50, db: Session = Depends(get_db)):
+def weather(skip: int = 0, limit: int = 50, db: Session = Depends(get_db)):
     return db.query(Weather)[skip: limit + skip]
 
 

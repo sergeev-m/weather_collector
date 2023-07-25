@@ -25,9 +25,8 @@ def setup_periodic_tasks(sender, **kwargs):
         settings.TEMP_UPDATE_INTERVAL, collect_weather.s(), name='every_hour'
     )
 
-
-celery_app.conf.timezone = 'UTC'
-celery_app.conf.update(
-    task_track_started=True,
-    task_time_limit=600,
-)
+    celery_app.conf.timezone = 'UTC'
+    celery_app.conf.update(
+        task_track_started=True,
+        task_time_limit=600,
+    )
