@@ -6,9 +6,9 @@ from typing import Any, Type, Union
 from sqlalchemy import insert
 from sqlalchemy.orm import Query, Session
 
-from core.conf import CsvPath, settings
-from log import log
-from weather.models import City, Weather
+from src.core.conf import CsvPath, settings
+from src.log import log
+from src.weather.models import City, Weather
 
 
 def get_city_temp(city: str, country: str,
@@ -30,7 +30,7 @@ def get_weather(db: Session) -> Union[Query[Type[Weather]], Query[Any]]:
         cities = db.query(City).all()
         data = [
             Weather(temp=get_city_temp(city.name, city.country), city=city)
-            for city in cities
+            for city in cities[:2]
         ]
         db.add_all(data)
         db.commit()

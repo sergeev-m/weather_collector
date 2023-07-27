@@ -4,16 +4,14 @@ from typing import Annotated, List
 from sqlalchemy import DateTime, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from core.models import Base
+from src.core.models import Base
 
 
 str50 = Annotated[str, 50]
-intpk = Annotated[int, mapped_column(primary_key=True)]
 
 
 class City(Base):
     """Город"""
-
     name: Mapped[str50]
     country: Mapped[str50]
     weathers: Mapped[List['Weather']] = relationship(back_populates='city')

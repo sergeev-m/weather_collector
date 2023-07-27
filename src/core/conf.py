@@ -34,17 +34,17 @@ class Settings(BaseSettings):
     CITY_CSV_FILENAME: str = 'cities.csv'
     CELERY_TASK_NAME: str = 'weather_collector'
     NUMBER_OF_RESULT_CITIES: int = 50
-    TEMP_UPDATE_INTERVAL: int = 60 * 60  # second
+    TEMP_UPDATE_INTERVAL: int = 60  # 60 * 60  # second
 
     # Env Postgres
     USER: str = os.environ.get("POSTGRES_USER", "postgres")
     PASSWORD: str = os.environ.get("POSTGRES_PASSWORD", "postgres")
     HOST: str = os.environ.get("POSTGRES_HOST", "localhost")
     PORT: str = os.environ.get("POSTGRES_PORT", "5432")
-    DB_NAME: str = os.environ.get("POSTGRES_DB", "junov_net")
+    DB_NAME: str = os.environ.get("POSTGRES_DB", "weather")
     DB_ECHO: bool = False
-    model_config = SettingsConfigDict(env_file='.env',
-                                      env_file_encoding='utf-8')
+    # model_config = SettingsConfigDict(env_file='.env',
+    #                                   env_file_encoding='utf-8')
 
     # Redis
     REDIS_HOST: str = os.environ.get('REDIS_HOST')
@@ -60,7 +60,7 @@ class Settings(BaseSettings):
         return f'redis://{self.REDIS_HOST}:{self.REDIS_PORT}'
 
 
-@lru_cache
+# @lru_cache
 def get_settings():
     return Settings()
 

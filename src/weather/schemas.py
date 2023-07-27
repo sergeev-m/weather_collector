@@ -14,5 +14,5 @@ class CitySchema(BaseModel):
 class WeatherSchema(BaseModel):
     city_id: int
     temp: float
-    time: datetime
+    time: datetime = datetime.now()
     city: CitySchema

@@ -3,9 +3,8 @@ import sys
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
 
-from core.conf import settings
-from core.models import Base
-from log import log
+from src.core.conf import settings
+from src.log import log
 
 
 def create_engine_and_session(url: str):
@@ -29,7 +28,3 @@ def get_db() -> Session:
         yield db
     finally:
         db.close()
-
-
-def create_db_and_tables():
-    Base.metadata.create_all(bind=engine)
