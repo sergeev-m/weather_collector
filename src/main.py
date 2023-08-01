@@ -1,12 +1,13 @@
 from fastapi import Depends, FastAPI
+
 from sqlalchemy.orm import Session
 
-from core.conf import settings
-from core.db import create_db_and_tables, db_session, get_db
-from tasks.tasks import celery_app, collect_weather
-from weather.models import Weather
-from weather.schemas import WeatherSchema
-from weather.services import get_cities, get_weather
+from src.core.conf import settings
+from src.core.db import get_db, db_session
+from src.tasks.tasks import celery_app, collect_weather
+from src.weather.models import Weather
+from src.weather.schemas import WeatherSchema
+from src.weather.services import load_cities
 
 
 app = FastAPI(
@@ -25,9 +26,8 @@ def weather(skip: int = 0, limit: int = 50, db: Session = Depends(get_db)):
 @app.on_event("startup")
 def on_startup() -> None:
     with db_session() as db:
-        create_db_and_tables()
-        get_cities(db)
-        get_weather(db)
+        load_cities(db)
+        collect_weather()
 
 
 @app.on_event('shutdown')

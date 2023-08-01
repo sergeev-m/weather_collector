@@ -1,18 +1,23 @@
 from datetime import datetime
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class CitySchema(BaseModel):
+    model_config = ConfigDict(str_min_length=3, from_attributes=True)
+
     name: str
     country: str
 
-    class Config:
-        from_attributes = True
+
+class CityList(BaseModel):
+    cities: list[CitySchema]
 
 
 class WeatherSchema(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     city_id: int
-    temp: float
-    time: datetime
+    temp: str
+    time: datetime = datetime.utcnow()
     city: CitySchema

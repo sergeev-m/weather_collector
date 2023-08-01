@@ -1,14 +1,13 @@
-import datetime
+from datetime import datetime
 from typing import Annotated, List
 
 from sqlalchemy import DateTime, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from core.models import Base
+from src.core.models import Base
 
 
 str50 = Annotated[str, 50]
-intpk = Annotated[int, mapped_column(primary_key=True)]
 
 
 class City(Base):
@@ -23,8 +22,8 @@ class Weather(Base):
     """Погода"""
 
     city_id: Mapped[int] = mapped_column(ForeignKey('city.id'))
-    temp: Mapped[float]
-    time: Mapped[datetime.datetime] = mapped_column(
-        DateTime, default=datetime.datetime.now
+    temp: Mapped[str]
+    time: Mapped[datetime] = mapped_column(
+        DateTime, default=datetime.utcnow
     )
     city: Mapped['City'] = relationship(back_populates='weathers')
