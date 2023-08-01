@@ -14,7 +14,7 @@ def collect_weather():
     with db_session() as db:
         try:
             get_weather(db)
-            log.info('OK')
+            log.info('collect_weather - ОК')
         except Exception as exc:
             log.error(exc)
 

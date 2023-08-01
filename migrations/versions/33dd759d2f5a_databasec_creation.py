@@ -27,7 +27,7 @@ def upgrade() -> None:
     op.create_index(op.f('ix_city_id'), 'city', ['id'], unique=False)
     op.create_table('weather',
     sa.Column('city_id', sa.Integer(), nullable=False),
-    sa.Column('temp', sa.Float(), nullable=False),
+    sa.Column('temp', sa.String(), nullable=False),
     sa.Column('time', sa.DateTime(), nullable=False),
     sa.Column('id', sa.Integer(), nullable=False, comment='primary_key'),
     sa.ForeignKeyConstraint(['city_id'], ['city.id'], ),

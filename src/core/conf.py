@@ -4,7 +4,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Optional
 from pydantic import PostgresDsn
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings
 
 BasePath = Path(__file__).resolve().parent.parent.parent
 
@@ -34,7 +34,7 @@ class Settings(BaseSettings):
     CITY_CSV_FILENAME: str = 'cities.csv'
     CELERY_TASK_NAME: str = 'weather_collector'
     NUMBER_OF_RESULT_CITIES: int = 50
-    TEMP_UPDATE_INTERVAL: int = 60  # 60 * 60  # second
+    TEMP_UPDATE_INTERVAL: int = 60 * 60  # second
 
     # Env Postgres
     USER: str = os.environ.get("POSTGRES_USER", "postgres")
@@ -43,8 +43,6 @@ class Settings(BaseSettings):
     PORT: str = os.environ.get("POSTGRES_PORT", "5432")
     DB_NAME: str = os.environ.get("POSTGRES_DB", "weather")
     DB_ECHO: bool = False
-    # model_config = SettingsConfigDict(env_file='.env',
-    #                                   env_file_encoding='utf-8')
 
     # Redis
     REDIS_HOST: str = os.environ.get('REDIS_HOST')
@@ -60,7 +58,7 @@ class Settings(BaseSettings):
         return f'redis://{self.REDIS_HOST}:{self.REDIS_PORT}'
 
 
-# @lru_cache
+@lru_cache
 def get_settings():
     return Settings()
 
