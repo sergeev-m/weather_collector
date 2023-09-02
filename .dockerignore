@@ -3,9 +3,11 @@ env/
 .git/
 .env
 log/
+*.yml
 
 # IDE
 .idea/
 .vscode/
 
+# DB
 *.sqlite3
